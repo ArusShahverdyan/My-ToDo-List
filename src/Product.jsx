@@ -9,7 +9,9 @@ class Product extends Component{
     render(){
           return(
             <div>
-              <Name text={this.props.name}/> : <Price value={this.props.price}/> : <Description message={this.props.description}/>
+              <Name text={this.props.name}/>  
+              <Price value={this.props.price}/> 
+               <Description message={this.props.description}/>
             </div>
           );
     }

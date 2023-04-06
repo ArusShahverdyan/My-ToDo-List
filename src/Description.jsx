@@ -4,9 +4,9 @@ class Description extends Component {
    
     render() {
         return (
-            <span>
-                {this.props.message}
-            </span>
+            <div>
+                description: {this.props.message}
+            </div>
         );
     }
 }

@@ -4,9 +4,9 @@ class Name extends Component {
    
     render() {
         return (
-            <span>
-                {this.props.text}
-            </span>
+            <div>
+              name: {this.props.text}
+            </div>
         );
     }
 }
