@@ -1,15 +1,19 @@
-import { Component } from "react";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import Product from './Product';
+
+import Todo from './components/Todo';
 
 
-class App extends Component {
-  return(
-    <div>
-        
-    </div >
-  );
-}
+
+function  App(){
+  
+    return (
+      <main>
+ <Todo/>
+      </main>
+     
+    );
+
+  }
 
 export default App;
