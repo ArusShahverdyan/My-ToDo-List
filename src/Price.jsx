@@ -1,5 +1,7 @@
 import { Component } from "react";
 
+
+
 class Price extends Component{
    
     render(){
