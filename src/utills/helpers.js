@@ -1,4 +1,4 @@
 
 export function idGenerator(){
-    retur Math.random().toString(32)+Math.random().toString(32);
+    return Math.random().toString(32)+Math.random().toString(32);
 }
