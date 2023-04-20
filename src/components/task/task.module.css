@@ -1,0 +1,12 @@
+.deleteButton {
+    margin-left: 5px;
+}
+
+.actionButtons{
+   display: flex; 
+   justify-content: right;
+}
+
+.selectTask input:hover{
+   cursor: pointer;
+}

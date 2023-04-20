@@ -1,7 +1,7 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Todo from './components/Todo';
+import Todo from './components/todo/Todo';
 
 
 
