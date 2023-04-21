@@ -10,3 +10,9 @@
 .selectTask input:hover{
   cursor: pointer;
 }
+
+.selectTask{
+   width: 18px;
+   height: 18px;
+   margin-bottom: 30px;
+}
