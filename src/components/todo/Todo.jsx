@@ -1,15 +1,19 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import { Component } from "react";
-import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
-import { idGenerator } from "../../utils/helpers";
+
+import { Container, Row, Col, InputGroup, Form, Button, CardGroup, Card } from "react-bootstrap";
+import { idGenerator } from "../utils/helpers";
 import Task from "../task/Task";
 import ConfirmDialog from "../ConfirmDialog";
 import styles from './todo.module.css';
+
 
 class Todo extends Component {
   state = {
     tasks: [],
     newTaskTitle: "",
     selectedTasks: new Set(),
+    isConfirmDialogOpen: false,
   };
 
   handleInputChange = (event) => {
@@ -44,12 +48,12 @@ class Todo extends Component {
   };
 
   onTaskDelete = (taskId) => {
-    const {selectedTasks, tasks} = this.state;
+    const { selectedTasks, tasks } = this.state;
     const newTasks = tasks.filter(task => task.id !== taskId);
 
-    const newState = {tasks: newTasks};
+    const newState = { tasks: newTasks };
 
-    if(selectedTasks.has(taskId)){
+    if (selectedTasks.has(taskId)) {
       const newSelectedTasks = new Set(selectedTasks);
       newSelectedTasks.delete(taskId);
       newState.selectedTasks = newSelectedTasks;
@@ -57,9 +61,9 @@ class Todo extends Component {
     this.setState(newState);
   };
 
-  onTaskSelect = (taskId)=>{
+  onTaskSelect = (taskId) => {
     const selectedTasks = new Set(this.state.selectedTasks);
-    if(selectedTasks.has(taskId)){
+    if (selectedTasks.has(taskId)) {
       selectedTasks.delete(taskId);
     }
     else {
@@ -68,23 +72,36 @@ class Todo extends Component {
     this.setState({ selectedTasks });
   }
 
-  deleteSelectedTasks = ()=>{
-      const newTasks = [];
-      const {selectedTasks, tasks} = this.state;
+  deleteSelectedTasks = () => {
+    const newTasks = [];
+    const { selectedTasks, tasks } = this.state;
 
-    tasks.forEach((task)=>{
-          if(!selectedTasks.has(task.id)){
-            newTasks.push(task);
-          }
+    tasks.forEach((task) => {
+      if (!selectedTasks.has(task.id)) {
+        newTasks.push(task);
+      }
     });
     this.setState({
       tasks: newTasks,
       selectedTasks: new Set(),
+      isConfirmDialogOpen: false,
     });
   };
 
+  openConfirmDialog = () => {
+    this.setState({
+      isConfirmDialogOpen: true
+    });
+  };
+
+  closeConfirmDialog = () => {
+    this.setState({
+      isConfirmDialogOpen: false
+    });
+  };
   render() {
-    const isAddNewTaskButtonDisabled = !this.state.newTaskTitle.trim();
+    const { isConfirmDialogOpen, newTaskTitle, selectedTasks } = this.state;
+    const isAddNewTaskButtonDisabled = !newTaskTitle.trim();
 
     return (
       <Container>
@@ -115,22 +132,45 @@ class Todo extends Component {
                 key={task.id}
                 onTaskDelete={this.onTaskDelete}
                 onTaskSelect={this.onTaskSelect}
+
               />
             );
           })}
         </Row>
-        <Button
-        className={styles.deletSelected}
-        variant="danger"
-        onClick={this.deleteSelectedTasks}
-        disabled={!this.state.selectedTasks.size}
-      >
-        Delete selected
-      </Button>
-      <ConfirmDialog />
+        <Row xs="2" sm="8" md="6" className="justify-content-center ">
+          <Button
+            // className={styles.deletSelected}
+            variant="danger"
+            onClick={this.openConfirmDialog}
+            disabled={!selectedTasks.size}
+          >
+            Delete selected
+          </Button>
+        </Row>
+             
+        {isConfirmDialogOpen &&
+          <ConfirmDialog
+            taskCount={selectedTasks.size}
+            onCancel={this.closeConfirmDialog}
+            onSubmit={this.deleteSelectedTasks}
+          />
+          }
       </Container>
     );
   }
 }
 
 export default Todo;
+
+//  <Card>
+//         <Card.Footer>
+//         <Button
+//             // className={styles.deletSelected}
+//             variant="danger"
+//             onClick={this.openConfirmDialog}
+//             disabled={!selectedTasks.size}
+//           >
+//             Delete selected
+//           </Button>
+//         </Card.Footer>
+//       </Card>
