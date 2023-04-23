@@ -9,7 +9,7 @@ function ConfirmDialog(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          Are you sure to delete {props.taskCount} task(s)?
+          Are you sure to delete {props.taskCount !== 0 ? props.taskCount :null} task(s)?
        
         </Modal.Title>
       </Modal.Header>
