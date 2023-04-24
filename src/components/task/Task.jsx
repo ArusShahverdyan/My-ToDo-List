@@ -2,7 +2,7 @@ import { Col, Button, Card, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import styles from "./task.module.css";
-
+import PropTypes from "prop-types"
 function Task(props) {
   const task = props.data;
   return (
@@ -32,5 +32,10 @@ function Task(props) {
     </Col>
   );
 }
-
+ 
+Task.propTypes ={
+  data:PropTypes.object.isRequired,
+  onTaskDelete:PropTypes.func.isRequired,
+  onTaskSelect:PropTypes.func.isRequired,
+}
 export default Task;
