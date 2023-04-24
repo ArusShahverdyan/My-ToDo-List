@@ -2,9 +2,12 @@ import { Col, Button, Card, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import styles from "./task.module.css";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
+
+
 function Task(props) {
   const task = props.data;
+
   return (
     <Col xs={8} sm={6} md={4} lg={3} >
       <Card className="mt-2 mb-2">
