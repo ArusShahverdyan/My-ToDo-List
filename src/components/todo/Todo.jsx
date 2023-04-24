@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Row, Col, InputGroup, Form, Button, CardGroup, Card } from "react-bootstrap";
 import Task from "../task/Task";
@@ -7,6 +7,7 @@ import ConfirmDialog from "../ConfirmDialog";
 import DeleteSelected from "../deleteSelected/DeleteSelected";
 //import styles from './todo.module.css';
 
+const apiUrl = "http://localhost:3001";
 
 function Todo() {
   const [tasks, setTasks] = useState([]);
@@ -14,6 +15,20 @@ function Todo() {
   const [selectedTasks, setSelectedTasks] = useState(new Set());
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
+
+  useEffect(()=>{
+    fetch(apiUrl+'/task', {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((result) => result.json())
+        .then((tasks) => {
+          setTasks(tasks);
+        });
+    }, []);
+
 
   const handleInputChange = (event) => {
     setNewTaskTitle(event.target.value);
@@ -32,13 +47,12 @@ function Todo() {
       return;
     }
 
-    const apiUrl = "http://localhost:3001/task";
 
     const newTask = {
       title: trimmedTitle,
     };
 
-    fetch(apiUrl, {
+    fetch(apiUrl +"/task", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -53,10 +67,7 @@ function Todo() {
         setNewTaskTitle("");
 
       });
-
-
-
-  };
+   };
 
   const onTaskDelete = (taskId) => {
     const newTasks = tasks.filter(task => task._id !== taskId);
@@ -121,7 +132,7 @@ function Todo() {
           </InputGroup>
         </Col>
       </Row>
-      <Row>
+      <Row >
         {tasks.map((task) => {
           return (
             <Task
