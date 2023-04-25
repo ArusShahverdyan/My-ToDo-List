@@ -5,3 +5,10 @@
 
 }
 
+.addButton {
+  position: fixed;
+  margin-bottom: 50px;
+  width: 150px;
+  height: 40px;
+
+}
