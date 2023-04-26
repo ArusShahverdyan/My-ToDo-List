@@ -17,7 +17,7 @@ export function truncateText(text = '', maxLength = 30) {
     return text;
   }
 
- export function currentDay() {
+ function currentDay() {
 
     const date = new Date();
        let month = date.getMonth();
@@ -34,5 +34,6 @@ export function truncateText(text = '', maxLength = 30) {
     //console.log(month, day, year);
     let today = year + '-' + month +'-' + day;
     return today;
-   
     }
+
+export const today = currentDay();

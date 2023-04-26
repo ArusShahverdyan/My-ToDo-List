@@ -10,27 +10,31 @@ import TaskModal from "../taskModal/TaskModal";
 import NavBar from "../navBar/NavBar";
 import Filters from "../filters/Filters";
 import styles from "./todo.module.css";
-
+//import { formatDate, today } from '../../utils/helpers';
 
 const taskApi = new TaskApi();
 
 function Todo() {
-
+ 
   const [tasks, setTasks] = useState([]);
   const [selectedTasks, setSelectedTasks] = useState(new Set());
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
   const [editableTask, setEditableTask] = useState(null);
 
+  const getTasks = (filters)=>{
+    taskApi.getAll(filters)
+    .then((tasks) => {
+      setTasks(tasks);
+    })
+    .catch((err) => {
+      toast.error(err.message);
+    });
+  };
 
+      
   useEffect(() => {
-    taskApi.getAll()
-      .then((tasks) => {
-        setTasks(tasks);
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
+      getTasks();
   }, []);
 
 
@@ -132,6 +136,10 @@ function Todo() {
       });
   };
 
+  const onFilter = (filters)=>{
+    getTasks(filters);
+  };
+
   return (
     <Container>
 
@@ -139,11 +147,22 @@ function Todo() {
         <NavBar />
       </Row>
 
+      <Row className="d-flex justify-content-center">
+        <Col xs="6" sm="4" md="3" >
+          <Button
+            className={`${styles.addButton} m-2 rounded-pill`}
+            variant="success"
+            onClick={() => setIsAddTaskModalOpen(true)}>
+            + ADD
+          </Button>
+        </Col>
+      </Row>
+
       <Row className="justify-content-center m-3">
         <h4>Hello</h4>
-
       </Row>
-      <Row>
+
+      <Row className="justify-content-start">
         <Col xs="6" sm="4" md="3">
           <Button variant="warning" onClick={selectAllTasks}>
             Select all
@@ -158,8 +177,8 @@ function Todo() {
 
       </Row>
 
-      <Row>
-        <Filters />
+      <Row className="mt-3">
+        <Filters  onFilter={onFilter}/>
       </Row>
 
       <Row >
@@ -173,6 +192,7 @@ function Todo() {
               checked={selectedTasks.has(task._id)}
               onTaskEdit={setEditableTask}
               onStatusChange={onEditTask}
+              con
             />
           );
         })}
@@ -222,18 +242,6 @@ function Todo() {
         pauseOnHover
         theme="colored"
       />
-  
-      <Row >
-      <Col xs="6" sm="4" md="3" >
-          <Button
-            className={`${styles.addButton} m-2 rounded-pill`}
-            variant="success"
-            onClick={() => setIsAddTaskModalOpen(true)}>
-            + ADD
-          </Button>
-        </Col>
-      </Row>
-     
     </Container>
   )
 }

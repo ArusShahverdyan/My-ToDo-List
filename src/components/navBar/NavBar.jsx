@@ -6,10 +6,10 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faFilter, faRefresh } from "@fortawesome/free-solid-svg-icons";
-
+import styles from  "./navBar.module.css";
 function NavBar() {
   return (
-    <Navbar bg="light" expand="sm">
+    <Navbar bg="light" expand="sm" className="mt-2">
       <Container fluid>
         <Navbar.Brand href="#">Todo</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />

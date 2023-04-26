@@ -10,28 +10,36 @@ import styles from "./task.module.css";
 
 function Task(props) {
   const task = props.data;
-  
+ 
 
   return (
     <Col xs={8} sm={6} md={4} lg={3} >
-      <Card className="mt-2 mb-2">
-        <Card.Body >
+      <Card 
+      className={`mt-3 mb-2 ${task.status === 'done' ? styles.statusDone : styles.statusActive}`}
+       >
+        <Card.Body 
+        >
           <Form.Check
             className={styles.selectTask}
             onChange={() => props.onTaskSelect(task._id)}
             checked={props.checked}
-          />
-          <Card.Title className={styles.textElipsis} >
+            label = {
+              <Card.Title className={styles.textElipsis} >
             {task.title}
           </Card.Title>
-
+            }
+          />
+          
           <Card.Text className={styles.textElipsis}>
             {task.description}
           </Card.Text>
+
           <Card.Text>Status: {task.status}</Card.Text>
-          <Card.Text>Created At: {formatDate(task.created_at)}</Card.Text>
-          <Card.Text>Deadline: {formatDate(task.date)}</Card.Text>
-          <div className={styles.actionButtons}>
+          <h6>Created At</h6>
+          <Card.Text> {formatDate(task.created_at)}</Card.Text>
+          <h6>Deadline</h6>
+          <Card.Text>{formatDate(task.date)}</Card.Text>
+          <div className={`${styles.actionButtons} ` }>
 
             {task.status === 'active' ?
               <Button
