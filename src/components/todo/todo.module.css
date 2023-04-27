@@ -1,12 +1,18 @@
-.deleteSelected{
-  position: fixed;
-  /* bottom: 20px; */
-  /* right: 10px; */
+.selectButtons{
+  display: flex;
+  justify-content: center;
+  
 
 }
 
-.addButton {
-  width: 200px;
+.addButton{
+  display: flex;
+ justify-content: center;
+}
+
+.botonsSize{
+  width: 130px;
   height: 40px;
-
+  border-radius: 50px;
 }
+

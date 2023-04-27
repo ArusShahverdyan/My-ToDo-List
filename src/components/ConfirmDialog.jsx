@@ -4,7 +4,7 @@ function ConfirmDialog(props) {
   
   return (
     <Modal
-      size="sm"
+      size="md"
       show={true}
       onHide={props.onCancel}
     >

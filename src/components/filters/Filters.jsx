@@ -3,7 +3,7 @@ import { Accordion, Form, Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faRefresh, /*faCalendar*/ } from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker";
-//import PropTypes  from "react-bootstrap/esm/Image";
+import PropTypes from "prop-types";
 import { formatDate } from "../../utils/helpers";
 import styles from "./filters.module.css";
 
@@ -49,8 +49,8 @@ const initialOptionFilters = {
 function Filters(props) {
   const [search, setSearch] = useState('');
   const [optionFilters, setOptionFilters] = useState(initialOptionFilters);
-
   const [dateFilters, setDateFilters] = useState(initialDateFilters);
+
 
   const resetFilters = () => {
     setSearch('');
@@ -125,14 +125,14 @@ function Filters(props) {
           </Form>
         </Accordion.Header>
     
-        <Accordion.Body>
-          <Container fluid={true}>
+        <Accordion.Body >
+          <Container fluid={true} >
             <Row>
               {dateOptions.map((dateOption) => {
                 const dateValue = dateFilters[dateOption.value];
                 
                     return (
-                      <Col sm={6} md={4} lg={3}
+                      <Col sm={6}  lg={3}
                         className="text-center"
                         key={dateOption.label}
                       >
@@ -151,8 +151,8 @@ function Filters(props) {
           </Row>
           
 
-            <Row>
-              <Col sm={6} md={4} lg={3} className="text-center">
+            <Row className="mt-2">
+              <Col sm={6}  className="text-center">
                 <fieldset>
                   <legend>Staus</legend>
                   <Form.Select
@@ -172,7 +172,7 @@ function Filters(props) {
                 </fieldset>
               </Col>
             
-              <Col sm={6} md={4} lg={3} className="text-center">
+              <Col sm={6}  className="text-center">
                 <fieldset>
                   <legend>Sort</legend>
                   <Form.Select
@@ -201,8 +201,8 @@ function Filters(props) {
 }
 
 
-// Filters.propTypes = {
-//   onFilter:PropTypes.func.isRequired,
-// }
+Filters.propTypes = {
+ onFilter:PropTypes.func.isRequired,
+}
 
 export default memo(Filters);

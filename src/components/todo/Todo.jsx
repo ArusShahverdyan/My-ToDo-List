@@ -10,31 +10,32 @@ import TaskModal from "../taskModal/TaskModal";
 import NavBar from "../navBar/NavBar";
 import Filters from "../filters/Filters";
 import styles from "./todo.module.css";
-//import { formatDate, today } from '../../utils/helpers';
+
 
 const taskApi = new TaskApi();
 
 function Todo() {
- 
+
   const [tasks, setTasks] = useState([]);
   const [selectedTasks, setSelectedTasks] = useState(new Set());
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
   const [editableTask, setEditableTask] = useState(null);
 
-  const getTasks = (filters)=>{
+  const getTasks = (filters) => {
     taskApi.getAll(filters)
-    .then((tasks) => {
-      setTasks(tasks);
-    })
-    .catch((err) => {
-      toast.error(err.message);
-    });
+      .then((tasks) => {
+        setTasks(tasks);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
 
-      
+
+
   useEffect(() => {
-      getTasks();
+    getTasks();
   }, []);
 
 
@@ -136,7 +137,7 @@ function Todo() {
       });
   };
 
-  const onFilter = (filters)=>{
+  const onFilter = (filters) => {
     getTasks(filters);
   };
 
@@ -147,30 +148,32 @@ function Todo() {
         <NavBar />
       </Row>
 
-      <Row className="d-flex justify-content-center">
-        <Col xs="6" sm="4" md="3" >
+
+      <Row
+        className={`${styles.addButton}   mt-3 mb-2`}
+      >
+        <Col xs="8" sm="4" md="3"  >
           <Button
-            className={`${styles.addButton} m-2 rounded-pill`}
+          className={styles.botonsSize}
             variant="success"
             onClick={() => setIsAddTaskModalOpen(true)}>
-            + ADD
+            Add task
           </Button>
         </Col>
-      </Row>
-
-      <Row className="justify-content-center m-3">
-        <h4>Hello</h4>
-      </Row>
-
-      <Row className="justify-content-start">
-        <Col xs="6" sm="4" md="3">
-          <Button variant="warning" onClick={selectAllTasks}>
+        <Col xs="8" sm="4" md="3" className='mt-1'>
+          <Button
+          className={styles.botonsSize}
+            variant="warning"
+            onClick={selectAllTasks}>
             Select all
           </Button>
         </Col>
 
-        <Col xs="6" sm="4" md="3">
-          <Button variant="secondary" onClick={resetSelectedTasks}>
+        <Col xs="8" sm="4" md="3" className='mt-1'>
+          <Button
+         className={styles.botonsSize}
+            variant="secondary"
+            onClick={resetSelectedTasks}>
             Reset selected
           </Button>
         </Col>
@@ -178,8 +181,17 @@ function Todo() {
       </Row>
 
       <Row className="mt-3">
-        <Filters  onFilter={onFilter}/>
+        <Filters onFilter={onFilter} />
       </Row>
+
+
+      <DeleteSelected
+        disabled={!selectedTasks.size}
+        taskCount={selectedTasks.size}
+        onSubmit={deleteSelectedTasks}
+        className={styles.deleteSelectedButton}
+
+      />
 
       <Row >
         {tasks.map((task) => {
@@ -192,17 +204,12 @@ function Todo() {
               checked={selectedTasks.has(task._id)}
               onTaskEdit={setEditableTask}
               onStatusChange={onEditTask}
-              con
             />
           );
         })}
       </Row>
 
-      <DeleteSelected
-        disabled={!selectedTasks.size}
-        taskCount={selectedTasks.size}
-        onSubmit={deleteSelectedTasks}
-      />
+
 
       {taskToDelete && (
         <ConfirmDialog
@@ -248,15 +255,4 @@ function Todo() {
 
 export default Todo;
 
-//  <Card>
-//         <Card.Footer>
-//         <Button
-//             // className={styles.deletSelected}
-//             variant="danger"
-//             onClick={this.openConfirmDialog}
-//             disabled={!selectedTasks.size}
-//           >
-//             Delete selected
-//           </Button>
-//         </Card.Footer>
-//       </Card>
+

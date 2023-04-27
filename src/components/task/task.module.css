@@ -1,15 +1,17 @@
-
+.actionButton{
+  margin-left: 10px;
+}
 
 .actionButtons{
-  margin-left:
+  display: flex;
+  justify-content: end;
  
  }
-
 
 .selectTask{
   width: 18px;
   height: 18px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .selectTask input{
@@ -22,12 +24,14 @@
   white-space: nowrap;
 }
 
+.descriptonHeight{
+  height: 30px;
+}
 
 .statusActive{
-  background: #ccc;
+  background-color: hwb(204 64% 6% / 0.9);
 }
 
 .statusDone{
-  background-color:green;
-  /* visibility: hidden; */
+  background-color: hwb(204 64% 6% / 0.4);
 }
