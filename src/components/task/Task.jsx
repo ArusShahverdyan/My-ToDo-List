@@ -12,43 +12,46 @@ function Task(props) {
   const task = props.data;
   const taskDescription = task.description;
   const taskTitle = task.title;
-
   return (
 
-    <Col xs={10} sm={6} md={4} lg={3} >
+    <Col    sm={6} md={4} lg={3} >
       <Card
-        className={`mt-3 mb-2 ${task.status === 'done' ? styles.statusDone : styles.statusActive} `}
+        className={`mt-3 mb-2 ${task.status === 'done' ? styles.statusDone : styles.statusActive} ${styles.task}`}
       >
-        <Card.Body>
+        <Card.Body >
+
+          <Card.Title className={styles.textElipsis} >
           <Form.Check
             className={styles.selectTask}
             onChange={() => props.onTaskSelect(task._id)}
             checked={props.checked}
-            label={
-              <Card.Title
-                className={styles.textElipsis}
-              >
-                {taskTitle.charAt(0).toUpperCase() + taskTitle.slice(1)}
-              </Card.Title>
-            }
           />
+            {`${taskTitle.charAt(0).toUpperCase() + taskTitle.slice(1)}`}
+          </Card.Title>
+
 
           <Card.Text
-            className={`${styles.textElipsis} ${styles.descriptonHeight} `}
+            className={`${styles.textElipsis} ${styles.descripton} `}
           >
             {taskDescription.charAt(0).toUpperCase() + taskDescription.slice(1)}
           </Card.Text>
 
-          <Card.Text>
-            <i>Status</i>: {task.status}
+          <Card.Text 
+          className={styles.taskLinespacing}
+          >
+            <i>Status: {task.status}</i>
           </Card.Text>
 
-          <Card.Text>
-            <i>Created At</i>: {formatDate(task.created_at)}
+          <Card.Text
+          className={styles.taskLinespacing}
+          >
+            <i>Created At: {formatDate(task.created_at)}</i>
           </Card.Text>
 
-          <Card.Text>
-            <i>Deadline</i>: {formatDate(task.date)}
+          <Card.Text
+          className={styles.taskLinespacing}
+          >
+            <i>Deadline: {formatDate(task.date)} </i>
           </Card.Text>
 
           <div className={`${styles.actionButtons} `}>

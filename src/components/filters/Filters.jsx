@@ -89,6 +89,8 @@ function Filters(props) {
     }
     props.onFilter(filters);
   };
+  
+
 
   return (
 

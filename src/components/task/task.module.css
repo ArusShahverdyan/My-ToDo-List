@@ -4,14 +4,16 @@
 
 .actionButtons{
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
  
  }
 
 .selectTask{
   width: 18px;
   height: 18px;
+  margin-right: 5px;
   margin-bottom: 20px;
+ display: inline;
 }
 
 .selectTask input{
@@ -22,10 +24,17 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+ 
+}
+.taskLinespacing {
+  font-size: 15px;
+  line-height: 0.7;
+  text-align: center;
 }
 
-.descriptonHeight{
-  height: 30px;
+.descripton{
+  height: 40px;
+  /* background-color:hwb(204 73% 4% / 0.891);  */
 }
 
 .statusActive{
@@ -34,4 +43,11 @@
 
 .statusDone{
   background-color: hwb(204 64% 6% / 0.4);
+}
+@media (max-width: 576px){
+  .task{
+    margin-left: 12%;
+   margin-right:10% ;
+
+  }
 }

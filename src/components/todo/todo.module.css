@@ -1,18 +1,30 @@
-.selectButtons{
-  display: flex;
-  justify-content: center;
-  
-
-}
 
 .addButton{
   display: flex;
  justify-content: center;
 }
-
-.botonsSize{
+.addButton Button{
   width: 130px;
-  height: 40px;
-  border-radius: 50px;
+  border-radius: 30px;
 }
 
+
+.selectButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+ }
+
+ .selectButton Button{
+  width: 150px;
+ }
+/*  */
+ /* @media (max-width: 576px){ */
+/*  */
+/*  */
+  /* .selectButton Button{ */
+   /* width: 100px; */
+   /* } */
+/*  */
+/*  */
+/* } */
