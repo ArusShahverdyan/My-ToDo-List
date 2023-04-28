@@ -1,6 +1,14 @@
 .deleteSelected{
   position: fixed;
- right: 10px;
-bottom: 20px;
-  
+  /* bottom: 20px; */
+  /* right: 10px; */
+
+}
+
+.addButton {
+  position: fixed;
+  margin-bottom: 50px;
+  width: 150px;
+  height: 40px;
+
 }
