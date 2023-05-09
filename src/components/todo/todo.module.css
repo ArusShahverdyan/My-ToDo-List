@@ -1,14 +1,30 @@
-.deleteSelected{
-  position: fixed;
-  /* bottom: 20px; */
-  /* right: 10px; */
 
+.addButton{
+  display: flex;
+ justify-content: center;
+}
+.addButton Button{
+  width: 130px;
+  border-radius: 30px;
 }
 
-.addButton {
-  position: fixed;
-  margin-bottom: 50px;
+
+.selectButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+ }
+
+ .selectButton Button{
   width: 150px;
-  height: 40px;
-
-}
+ }
+/*  */
+ /* @media (max-width: 576px){ */
+/*  */
+/*  */
+  /* .selectButton Button{ */
+   /* width: 100px; */
+   /* } */
+/*  */
+/*  */
+/* } */

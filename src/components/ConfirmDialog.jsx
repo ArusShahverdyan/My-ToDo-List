@@ -4,17 +4,16 @@ function ConfirmDialog(props) {
   
   return (
     <Modal
-      size="sm"
+      size="md"
       show={true}
-      onHide={() => { }}
+      onHide={props.onCancel}
     >
       <Modal.Header closeButton>
         <Modal.Title>
           Are you sure to delete {props.taskCount !== 0 ? props.taskCount :null} task(s)?
-       
-        </Modal.Title>
+             </Modal.Title>
       </Modal.Header>
-      <Modal.Body >
+      <Modal.Body  >
         <div className="d-flex justify-content-evenly">
 
           <Button

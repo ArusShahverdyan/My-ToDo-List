@@ -19,6 +19,7 @@ function TaskModal(props) {
             setTitle(data.title);
             setDescription(data.description);
             setDate(data.date ? new Date(data.date) : new Date());
+            setIsTitleValid(true)
         }
     },  [props]);
 
@@ -57,6 +58,7 @@ function TaskModal(props) {
         return () => {
             document.removeEventListener("keydown", keydownHandler);
         };
+        // eslint-disable-next-line
     }, [title, description, date]);
 
     return (
@@ -66,7 +68,9 @@ function TaskModal(props) {
             onHide={props.onCancel}
         >
         <Modal.Header closeButton>
-        <Modal.Title>Add new task</Modal.Title>
+        <Modal.Title>
+            Add new task
+            </Modal.Title>
          </Modal.Header>
         <Modal.Body>
                 <Form.Control
@@ -79,7 +83,7 @@ function TaskModal(props) {
                     as="textarea"
                     placeholder="What do you need to do today?"
                     rows={5}
-                    className={`mt-2  mb-3`}
+                    className= "mt-3 mb-2"
                     value={description}
                     onChange={(event) => setDescription(event.target.value)}
                 />
@@ -101,7 +105,10 @@ function TaskModal(props) {
                         >
                             Save
                         </Button>
-                        <Button variant="warning" onClick={props.onCancel}>
+                        <Button 
+                           variant="warning"
+                            onClick={props.onCancel}
+                         >
                             Cancel
                         </Button>
                     </div>

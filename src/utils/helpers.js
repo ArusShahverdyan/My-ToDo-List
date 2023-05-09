@@ -1,13 +1,11 @@
+import moment from "moment";
+
 export function formatDate(date) {
-    if (date instanceof Date) {
-        return date.toISOString().slice(0, 10);
+    if (!date) {
+        return "";
     }
-    if (typeof date === "string"){
-        return date.slice(0, 10);
-}
-           return '';
-  // throw new Error("Date must be string or Date object")
-}
+           return moment(date).format("YYYY-MM-DD");
+  }
 
 
 export function truncateText(text = '', maxLength = 30) {
@@ -17,22 +15,8 @@ export function truncateText(text = '', maxLength = 30) {
     return text;
   }
 
- export function currentDay() {
 
-    const date = new Date();
-       let month = date.getMonth();
-    if (month < 10) {
-        month = '0' + month;
-    }
-   
-    let day = date.getDate();
-    if (day < 10) {
-        day = ('0' + day);
-    }
-   
-    const year = date.getFullYear();
-    //console.log(month, day, year);
-    let today = year + '-' + month +'-' + day;
-    return today;
-   
-    }
+
+
+
+
