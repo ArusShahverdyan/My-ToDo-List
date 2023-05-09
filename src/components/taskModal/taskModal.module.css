@@ -1,0 +1,4 @@
+.invalid, .invalid:focus{
+   outline: solid red;
+}
+

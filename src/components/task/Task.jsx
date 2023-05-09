@@ -1,28 +1,94 @@
+import { memo } from 'react';
 import { Col, Button, Card, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCheck, faHistory, faPen } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
+import { formatDate } from '../../utils/helpers';
 import styles from "./task.module.css";
+
+
 
 function Task(props) {
   const task = props.data;
+  const taskDescription = task.description;
+  const taskTitle = task.title;
   return (
-    <Col xs={12} sm={6} md={4} lg={3}>
-      <Card className="mt-2 mb-2">
-        <Card.Body>
-        <Form.Check 
-        className={styles.selectTask}
-        onClick={()=>props.onTaskSelect(task.id)}
-        />
-          <Card.Title>{task.title}</Card.Title>
-          <Card.Text>Description</Card.Text>
-          <div className={styles.actionButtons}>
-            <Button variant="warning">
-              <FontAwesomeIcon icon={faPenToSquare} />
+
+    <Col    sm={6} md={4} lg={3} >
+      <Card
+        className={`mt-3 mb-2 ${task.status === 'done' ? styles.statusDone : styles.statusActive} ${styles.task}`}
+      >
+        <Card.Body >
+
+          <Card.Title className={styles.textElipsis} >
+          <Form.Check
+            className={styles.selectTask}
+            onChange={() => props.onTaskSelect(task._id)}
+            checked={props.checked}
+          />
+            {`${taskTitle.charAt(0).toUpperCase() + taskTitle.slice(1)}`}
+          </Card.Title>
+
+
+          <Card.Text
+            className={`${styles.textElipsis} ${styles.descripton} `}
+          >
+            {taskDescription.charAt(0).toUpperCase() + taskDescription.slice(1)}
+          </Card.Text>
+
+          <Card.Text 
+          className={styles.taskLinespacing}
+          >
+            <i>Status: {task.status}</i>
+          </Card.Text>
+
+          <Card.Text
+          className={styles.taskLinespacing}
+          >
+            <i>Created At: {formatDate(task.created_at)}</i>
+          </Card.Text>
+
+          <Card.Text
+          className={styles.taskLinespacing}
+          >
+            <i>Deadline: {formatDate(task.date)} </i>
+          </Card.Text>
+
+          <div className={`${styles.actionButtons} `}>
+
+            {task.status === 'active' ?
+              <Button
+                className={styles.actionButton}
+                title="Mark as done"
+                variant="light"
+                onClick={() => props.onStatusChange({ status: 'done', _id: task._id })}
+              >
+                <FontAwesomeIcon icon={faCheck} size="xs" />
+              </Button> :
+
+              <Button
+                className={styles.actionButton}
+                title="Mark as active"
+                variant="light"
+                onClick={() => props.onStatusChange({ status: 'active', _id: task._id })}
+              >
+                <FontAwesomeIcon icon={faHistory} />
+              </Button>
+            }
+
+            <Button
+              className={styles.actionButton}
+              variant="light"
+              onClick={() => props.onTaskEdit(task)}
+            >
+              <FontAwesomeIcon icon={faPen} />
             </Button>
-            <Button 
-            variant="danger" 
-            className={styles.deleteButton}
-            onClick={()=>props.onTaskDelete(task.id)}
+
+            <Button
+              className={styles.actionButton}
+              title="Delete"
+              variant="light"
+              onClick={() => props.onTaskDelete(task._id)}
             >
               <FontAwesomeIcon icon={faTrash} />
             </Button>
@@ -30,7 +96,16 @@ function Task(props) {
         </Card.Body>
       </Card>
     </Col>
+
   );
 }
 
-export default Task;
+Task.propTypes = {
+  data: PropTypes.object.isRequired,
+  onTaskDelete: PropTypes.func.isRequired,
+  onTaskSelect: PropTypes.func.isRequired,
+  onTaskEdit: PropTypes.func.isRequired,
+  checked: PropTypes.bool.isRequired,
+
+};
+export default memo(Task);
