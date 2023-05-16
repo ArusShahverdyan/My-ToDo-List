@@ -5,22 +5,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import { useSelector } from 'react-redux'; 
+// import { configureStore } from '@reduxjs/toolkit';
+// import { Provider } from 'react-redux';
+// import { useSelector } from 'react-redux'; 
 import NavBar from './components/navBar/NavBar';
 import {routes} from './rotes';
 
-export const store = configureStore({
-  reducer: {},
-})
-
+// export const store = configureStore({
+//   reducer: {},
+// })
 
 
 function App() {
-  const isLoading = useSelector()
+  // const isLoading = useSelector()
+     {/* <Provider store={store}> */} {/* </Provider> */}
   return (
-    <Provider store={store}>
+ 
     <BrowserRouter>
     <main>
       <NavBar />
@@ -49,7 +49,7 @@ function App() {
         />
     </main>
   </BrowserRouter>
-  </Provider>
+ 
   );
 }
 
