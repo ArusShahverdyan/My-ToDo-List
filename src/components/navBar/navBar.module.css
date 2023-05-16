@@ -1,0 +1,19 @@
+.active{
+    color:purple  !important;
+    text-decoration: underline;
+   
+}
+
+.pageLinks{
+    margin-left: 10px;
+text-decoration: none;
+font-size: x-large;
+}
+
+/* .pageLinksGroupe{ */
+   /* margin-left: 20px; */
+/* } */
+/* .pageLinks:active{ */
+    /* color:purple;    */
+    /* text-decoration: underline; */
+/* } */

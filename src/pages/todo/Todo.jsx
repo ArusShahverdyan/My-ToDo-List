@@ -1,14 +1,13 @@
 
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { ToastContainer, toast } from 'react-toastify';
-import Task from "../task/Task";
-import ConfirmDialog from "../ConfirmDialog";
-import DeleteSelected from "../deleteSelected/DeleteSelected";
+import { /*ToastContainer,*/ toast } from 'react-toastify';
+import Task from "../../components/task/Task";
+import ConfirmDialog from "../../components/ConfirmDialog";
+import DeleteSelected from "../../components/deleteSelected/DeleteSelected";
 import TaskApi from "../../api/taskApi";
-import TaskModal from "../taskModal/TaskModal";
-import NavBar from "../navBar/NavBar";
-import Filters from "../filters/Filters";
+import TaskModal from "../../components/taskModal/TaskModal";
+import Filters from "../../components/filters/Filters";
 import styles from "./todo.module.css";
 
 
@@ -46,7 +45,7 @@ function Todo() {
 
         setTasks(tasksCopy);
         setIsAddTaskModalOpen(false);
-        toast.success('The task has been added successfully!');
+        toast.success('The task have been added successfully!');
       })
       .catch((err) => {
         toast.error(err.message);
@@ -67,7 +66,7 @@ function Todo() {
           newSelectedTasks.delete(taskId);
           setSelectedTasks(newSelectedTasks)
         }
-        toast.success("The task has been deleted successfully!");
+        toast.success("The task have been deleted successfully!");
       })
       .catch((err) => {
         toast.error(err.message);
@@ -125,7 +124,7 @@ function Todo() {
         const newTasks = [...tasks];
         const foundIndex = newTasks.findIndex((t) => t._id === task._id);
         newTasks[foundIndex] = task;
-        toast.success(`Tasks havs been updated successfully!`);
+        toast.success(`Tasks have been updated successfully!`);
         setTasks(newTasks);
         setEditableTask(null);
       })
@@ -141,10 +140,6 @@ function Todo() {
 
   return (
     <Container>
-
-      <Row>
-        <NavBar />
-      </Row>
 
       <Row>
         <Col className={styles.addButton}>
@@ -164,7 +159,9 @@ function Todo() {
         <Col xs="8" sm="4" md="3"  className={styles.selectButton}>
           <Button
             variant="secondary"
-            onClick={resetSelectedTasks}>
+            onClick={resetSelectedTasks}
+         
+            >
             Reset selected
           </Button>
         </Col>
@@ -173,7 +170,9 @@ function Todo() {
           <Button
             // className={styles.selectButton}
             variant="warning"
-            onClick={selectAllTasks}>
+            onClick={selectAllTasks}
+          
+            >
             Select all
           </Button>
         </Col>
@@ -228,7 +227,7 @@ function Todo() {
           data={editableTask}
         />
       )}
-
+{/* 
       <ToastContainer
         position="bottom-left"
         autoClose={3000}
@@ -240,7 +239,7 @@ function Todo() {
         draggable
         pauseOnHover
         theme="colored"
-      />
+      /> */}
     </Container>
   )
 }

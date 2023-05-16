@@ -1,0 +1,24 @@
+.actionButton{
+    margin-left: 10px;
+}
+.actionButtons{
+display: flex;
+justify-content: space-between;
+}
+.taskContainer{
+     height: calc(100vh - 20px);
+    display: flex;
+    align-items: center;
+}
+
+.statusActive{
+    background-color: hwb(204 64% 6% / 0.9);
+  }
+  
+  .statusDone{
+    background-color: hwb(204 64% 6% / 0.4);
+  }
+  .singleTaskBG{
+    background-image: url('./bgImage/1614724603_42-p-foni-dlya-lendinga-45.jpg');
+   background-size: initial;
+  }

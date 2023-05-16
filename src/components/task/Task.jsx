@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { Col, Button, Card, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faCheck, faHistory, faPen } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { formatDate } from '../../utils/helpers';
 import styles from "./task.module.css";
@@ -10,22 +11,23 @@ import styles from "./task.module.css";
 
 function Task(props) {
   const task = props.data;
+
   const taskDescription = task.description;
   const taskTitle = task.title;
-  return (
 
-    <Col    sm={6} md={4} lg={3} >
+  return (
+    <Col sm={6} md={4} lg={3} >
       <Card
         className={`mt-3 mb-2 ${task.status === 'done' ? styles.statusDone : styles.statusActive} ${styles.task}`}
       >
         <Card.Body >
 
           <Card.Title className={styles.textElipsis} >
-          <Form.Check
-            className={styles.selectTask}
-            onChange={() => props.onTaskSelect(task._id)}
-            checked={props.checked}
-          />
+            <Form.Check
+              className={styles.selectTask}
+              onChange={() => props.onTaskSelect(task._id)}
+              checked={props.checked}
+            />
             {`${taskTitle.charAt(0).toUpperCase() + taskTitle.slice(1)}`}
           </Card.Title>
 
@@ -36,23 +38,29 @@ function Task(props) {
             {taskDescription.charAt(0).toUpperCase() + taskDescription.slice(1)}
           </Card.Text>
 
-          <Card.Text 
-          className={styles.taskLinespacing}
+          <Card.Text
+            className={styles.taskLinespacing}
           >
             <i>Status: {task.status}</i>
           </Card.Text>
 
           <Card.Text
-          className={styles.taskLinespacing}
+            className={styles.taskLinespacing}
           >
             <i>Created At: {formatDate(task.created_at)}</i>
           </Card.Text>
 
           <Card.Text
-          className={styles.taskLinespacing}
+            className={styles.taskLinespacing}
           >
             <i>Deadline: {formatDate(task.date)} </i>
           </Card.Text>
+
+          <Link to={`/task/${task._id}`}>
+            <Card.Text>
+              <Button className = 'mb-2'variant="info">Show details</Button>
+            </Card.Text>
+          </Link>
 
           <div className={`${styles.actionButtons} `}>
 
