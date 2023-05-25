@@ -1,0 +1,19 @@
+.aboutBG{
+    background-image: url('./FB_IMG_1684998641063.jpg');
+height: 450px;
+top:20px;
+background-repeat: no-repeat;
+background-position: center;
+}
+.pageBG{
+    background-color: rgb(129, 129, 243);
+}
+@media(max-width:768px ){
+    .aboutStyles{
+        width: 300px;
+    }
+}
+img{
+    width: 100px;
+    height: 100px;
+}

@@ -1,7 +1,7 @@
 div.fill {
     display: flex;
     justify-content: center;
-    margin-top: 20vh;
+    margin-top: 7vh;
     background-color: rgb(174, 198, 248);
    }
  .contactPageTitle{
@@ -35,8 +35,7 @@ div.fill {
     padding: 30px auto;
    }
    .socialLogos{
-    /* margin: 30px auto; */
-    padding: 30px;
+    padding: 20px;
     border-top: 1px solid #f1f1f1ee;
    }
 
@@ -49,6 +48,8 @@ div.fill {
     display: flex;
     justify-content: center;
    }
+
+
 
    @media (max-width: 576px){
     div.fill {

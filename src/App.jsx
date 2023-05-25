@@ -6,25 +6,24 @@ import './App.css';
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { configureStore } from '@reduxjs/toolkit';
-// import { Provider } from 'react-redux';
-// import { useSelector } from 'react-redux'; 
+ import { useSelector } from 'react-redux'; 
 import NavBar from './components/navBar/NavBar';
-import {routes} from './rotes';
+import {routes} from './routes';
+import Loader from './components/loader/Loader';
 
-// export const store = configureStore({
-//   reducer: {},
-// })
+
 
 
 function App() {
-  // const isLoading = useSelector()
-     {/* <Provider store={store}> */} {/* </Provider> */}
-  return (
  
+  const showLoading = useSelector((state) => state.loader.isLoading);
+  return (
     <BrowserRouter>
     <main>
       <NavBar />
-        <Routes>
+     
+      { showLoading && <Loader />}
+        <Routes>  
         {
           routes.map(page =>(
             <Route 
@@ -34,6 +33,7 @@ function App() {
             />
             ))
         }
+        
         </Routes>
         <ToastContainer
           position="bottom-left"
@@ -47,6 +47,7 @@ function App() {
           pauseOnHover
           theme="colored"
         />
+        
     </main>
   </BrowserRouter>
  
