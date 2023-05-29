@@ -1,17 +1,17 @@
 
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { ToastContainer, toast } from 'react-toastify';
-import Task from "../task/Task";
-import ConfirmDialog from "../ConfirmDialog";
-import DeleteSelected from "../deleteSelected/DeleteSelected";
+import { /*ToastContainer,*/ toast } from 'react-toastify';
+import { useDispatch } from "react-redux";
+import Task from "../../components/task/Task";
+import ConfirmDialog from "../../components/ConfirmDialog";
+import DeleteSelected from "../../components/deleteSelected/DeleteSelected";
 import TaskApi from "../../api/taskApi";
-import TaskModal from "../taskModal/TaskModal";
-import NavBar from "../navBar/NavBar";
-import Filters from "../filters/Filters";
+import TaskModal from "../../components/taskModal/TaskModal";
+import Filters from "../../components/filters/Filters";
 import styles from "./todo.module.css";
-
-
+import { setTasksCount } from "../../redux/counter";
+import { setLoader } from '../../redux/loading';
 const taskApi = new TaskApi();
 
 function Todo() {
@@ -22,23 +22,32 @@ function Todo() {
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
   const [editableTask, setEditableTask] = useState(null);
 
-  const getTasks = (filters) => {
+  const dispatch = useDispatch();
 
+  const getTasks = (filters) => {
+    dispatch(setLoader(true));
     taskApi.getAll(filters)
       .then((tasks) => {
         setTasks(tasks);
       })
       .catch((err) => {
         toast.error(err.message);
-      });
+      })
+      .finally(() => dispatch(setLoader(false)));
   };
 
   useEffect(() => {
     getTasks();
+    //  eslint-disable-next-line
   }, []);
 
-  const onAddNewTask = (newTask) => {
+  useEffect(() => {
+    dispatch(setTasksCount(tasks.length));
+  }, [tasks.length, dispatch]);
 
+
+  const onAddNewTask = (newTask) => {
+    dispatch(setLoader(true));
     taskApi.add(newTask)
       .then((task) => {
         const tasksCopy = [...tasks];
@@ -46,15 +55,17 @@ function Todo() {
 
         setTasks(tasksCopy);
         setIsAddTaskModalOpen(false);
-        toast.success('The task has been added successfully!');
+        toast.success('The task have been added successfully!');
       })
       .catch((err) => {
         toast.error(err.message);
-      });
+      })
+      .finally(() => dispatch(setLoader(false)));;
   };
 
 
   const onTaskDelete = (taskId) => {
+    dispatch(setLoader(true));
     taskApi
       .delete(taskId)       //getAll(taskId)
       .then(() => {
@@ -67,11 +78,12 @@ function Todo() {
           newSelectedTasks.delete(taskId);
           setSelectedTasks(newSelectedTasks)
         }
-        toast.success("The task has been deleted successfully!");
+        toast.success("The task have been deleted successfully!");
       })
       .catch((err) => {
         toast.error(err.message);
-      });
+      })
+      .finally(() => dispatch(setLoader(false)));
   };
 
 
@@ -88,6 +100,7 @@ function Todo() {
 
 
   const deleteSelectedTasks = () => {
+    dispatch(setLoader(true));
     taskApi
       .deleteMany([...selectedTasks])
       .then(() => {
@@ -105,7 +118,8 @@ function Todo() {
       })
       .catch((err) => {
         toast.error(err.message);
-      });
+      })
+      .finally(() => dispatch(setLoader(false)));
   };
 
 
@@ -119,19 +133,21 @@ function Todo() {
   };
 
   const onEditTask = (editedTask) => {
+    dispatch(setLoader(true));
     taskApi
       .update(editedTask)
       .then((task) => {
         const newTasks = [...tasks];
         const foundIndex = newTasks.findIndex((t) => t._id === task._id);
         newTasks[foundIndex] = task;
-        toast.success(`Tasks havs been updated successfully!`);
+        toast.success(`Tasks have been updated successfully!`);
         setTasks(newTasks);
         setEditableTask(null);
       })
       .catch((err) => {
         toast.error(err.message);
-      });
+      })
+      .finally(() => dispatch(setLoader(false)));
   };
 
   const onFilter = (filters) => {
@@ -141,10 +157,6 @@ function Todo() {
 
   return (
     <Container>
-
-      <Row>
-        <NavBar />
-      </Row>
 
       <Row>
         <Col className={styles.addButton}>
@@ -161,19 +173,21 @@ function Todo() {
       </Row>
 
       <Row >
-        <Col xs="8" sm="4" md="3"  className={styles.selectButton}>
+        <Col xs="8" sm="4" md="3" className={styles.selectButton}>
           <Button
             variant="secondary"
-            onClick={resetSelectedTasks}>
+            onClick={resetSelectedTasks}
+
+          >
             Reset selected
           </Button>
         </Col>
 
         <Col xs="8" sm="4" md="3" className={styles.selectButton}>
           <Button
-            // className={styles.selectButton}
             variant="warning"
-            onClick={selectAllTasks}>
+            onClick={selectAllTasks}
+          >
             Select all
           </Button>
         </Col>
@@ -182,7 +196,6 @@ function Todo() {
             disabled={!selectedTasks.size}
             taskCount={selectedTasks.size}
             onSubmit={deleteSelectedTasks}
-          // className={`${styles.selectButton} xs=8 sm=4 md=3 mt=1`}
           />
         </Col>
 
@@ -228,8 +241,7 @@ function Todo() {
           data={editableTask}
         />
       )}
-
-      <ToastContainer
+      {/*       <ToastContainer
         position="bottom-left"
         autoClose={3000}
         hideProgressBar={false}
@@ -240,7 +252,7 @@ function Todo() {
         draggable
         pauseOnHover
         theme="colored"
-      />
+      /> */}
     </Container>
   )
 }

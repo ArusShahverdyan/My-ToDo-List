@@ -1,25 +1,62 @@
 import { memo } from "react";
-import{Nav, Navbar, Container}  from "react-bootstrap";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faSearch, faFilter, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import { NavLink } from "react-router-dom";
+import { useState } from 'react';
+import styles from "./navBar.module.css"
+
+
+const activeLinkClassName = ({ isActive }) => {
+  const classes = [styles.pageLinks];
+  if (isActive) {
+    classes.push(styles.active);
+  }
+  return classes.join(' ');
+};
 
 
 function NavBar() {
-  return (
-    <Navbar bg="light" expand="sm" className="mt-2">
-      <Container fluid>
-        <Navbar.Brand href="#">Todo</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav className="me-auto my-2 my-lg-0">
-            <Nav.Link href="#action1">Tasks</Nav.Link>
-            <Nav.Link href="#action2">About</Nav.Link>
-            <Nav.Link href="#action2">Contact us</Nav.Link>
-          </Nav>
+  const [menuOpen, setMenuOpen] = useState(false)
 
-        </Navbar.Collapse>
+  const handleClose = () => setMenuOpen(false)
+  const handleShow = () => setMenuOpen(true)
+  return (
+
+    <Navbar bg="light" expand='sm' className="m-2">
+      <Container fluid>
+        <NavLink to="/" className={activeLinkClassName}>Todo</NavLink>
+        <Navbar.Toggle
+          aria-controls={`offcanvasNavbar-expand-sm`}
+          onClick={handleShow}
+        />
+        <Navbar.Offcanvas
+
+          aria-labelledby={`offcanvasNavbarLabel-expand-expand`}
+          placement="end"
+          show={menuOpen}
+          onHide={handleClose}
+        >
+
+          <Offcanvas.Header closeButton> </Offcanvas.Header>
+          <Offcanvas.Body >
+
+            <Nav className="justify-content-start flex-grow-1 pe-3" >
+              {/* <NavLink to="/task" className={activeLinkClassName} onClick={handleClose} > */}
+                {/* Tasks */}
+              {/* </NavLink> */}
+              <NavLink to="about" className={activeLinkClassName} onClick={handleClose}>About</NavLink>
+              <NavLink to="/contact" className={activeLinkClassName} onClick={handleClose}>Contact us</NavLink>
+            </Nav>
+
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+
       </Container>
     </Navbar>
+
   );
 }
 
